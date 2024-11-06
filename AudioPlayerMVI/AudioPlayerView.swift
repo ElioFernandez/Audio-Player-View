@@ -33,19 +33,19 @@ struct AudioPlayerView: MVIBaseView {
                 }
                 .padding(.horizontal)
             }
-            .frame(height: 72)
+            .frame(height: 64)
             .padding(36)
             
             Divider()
-                .foregroundStyle(.white)
+                .background(.gray.opacity(0.5))
                 
-            Spacer()
             VStack(spacing: 0) {
                 Slider(value: Binding(
                     get: { Double(viewModel.state.progressTimePlayback / viewModel.state.totalPlaybackDuration) },
                     set: { newValue in viewModel.intentHandler(.didTapProgressSlider(Float(newValue))) }
                 ))
                 .tint(.pink.opacity(0.4))
+                .padding(.top, 16)
                                 
                 HStack {
                     Text(String(format: "%02d:%02d", Int(viewModel.state.progressTimePlayback) / 60, Int(viewModel.state.progressTimePlayback) % 60))
