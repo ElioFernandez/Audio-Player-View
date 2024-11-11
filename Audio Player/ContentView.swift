@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModelAP = AudioPlayerViewModel(state: AudioPlayerState(showAudioPlayer: false)) // Delete after finishing testing
+    @StateObject var viewModelAP = AudioPlayerViewModel(state: AudioPlayerState(showAudioPlayer: false))
     
     var body: some View {
         ZStack {
@@ -20,23 +20,7 @@ struct ContentView: View {
             }
             .padding()
             
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button {
-                        viewModelAP.state.showAudioPlayer.toggle()
-                    } label: {
-                        Image(systemName: "play.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 48, height: 48)
-                            .tint(.black)
-                            .shadow(radius: 8)
-                    }
-                    .padding()
-                }
-            }
+            playButton
             
             if viewModelAP.state.showAudioPlayer {
                 ZStack(alignment: .bottom) {
@@ -46,6 +30,28 @@ struct ContentView: View {
                     AudioPlayerView(viewModel: viewModelAP)
                         .padding(.bottom)
                 }
+            }
+        }
+    }
+    
+    var playButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                        viewModelAP.state.showAudioPlayer.toggle()
+                    }
+                } label: {
+                    Image(systemName: "play.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 48, height: 48)
+                        .tint(.black)
+                        .shadow(radius: 8)
+                }
+                .padding()
             }
         }
     }

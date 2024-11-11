@@ -24,7 +24,6 @@ class AudioPlayerViewModel: MVIBaseViewModel {
             forwardPlayback()
         }
     }
-    
 }
 
 private extension AudioPlayerViewModel {
@@ -59,7 +58,6 @@ private extension AudioPlayerViewModel {
             state.player?.play()
             playbackTimer()
         }
-        
     }
     
     func resetPlayback() {
@@ -82,7 +80,6 @@ private extension AudioPlayerViewModel {
         if state.isPlaying == .on {
             state.player?.play()
         }
-        
         restartPlaybackTimer()
     }
     
@@ -151,27 +148,29 @@ private extension AudioPlayerViewModel {
     
     func downloadAndInitializePlayer(with urlString: String) {
         guard let url = URL(string: urlString) else {
-            print("URL no válida")
+            print("Invalid URL")
             return
         }
         
         let task = URLSession.shared.downloadTask(with: url) { localURL, response, error in
             if let localURL = localURL {
                 do {
-                    self.state.player = try AVAudioPlayer(contentsOf: localURL)
-                    self.state.player?.prepareToPlay()
-                    self.state.totalPlaybackDuration = self.state.player?.duration ?? 0.0
-                    DispatchQueue.main.async {
+                    let player = try AVAudioPlayer(contentsOf: localURL)
+                    player.prepareToPlay()
+                    let duration = player.duration
+                    
+                    DispatchQueue.main.sync {
+                        self.state.player = player
+                        self.state.totalPlaybackDuration = duration
                         self.playbackToggle()
                     }
                 } catch {
-                    print("Error al inicializar el reproductor de audio: \(error.localizedDescription)")
+                    print("Error initializing audio player: \(error.localizedDescription)")
                 }
             } else if let error = error {
-                print("Error al descargar el audio: \(error.localizedDescription)")
+                print("Error downloading audio: \(error.localizedDescription)")
             }
         }
-        
         task.resume()
     }
 }
