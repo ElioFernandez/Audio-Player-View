@@ -3,8 +3,7 @@ import Combine
 
 struct AudioPlayerView: MVIBaseView {
     @ObservedObject var viewModel: AudioPlayerViewModel
-    @State private var value = 0.0
-    @State private var volume = 1.0
+    let semiTransparentGray = Color.gray.opacity(0.5)
     
     var body: some View {
         VStack(spacing: 0) {
@@ -41,7 +40,7 @@ struct AudioPlayerView: MVIBaseView {
             .scaledToFit()
             .frame(width: 74, height: 74)
             .cornerRadius(6)
-            .foregroundStyle(.gray.opacity(0.5))
+            .foregroundStyle(semiTransparentGray)
     }
     
     var titleSongView: some View {
@@ -49,7 +48,7 @@ struct AudioPlayerView: MVIBaseView {
             Text("iPhone")
                 .font(.system(size: 12, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.gray.opacity(0.5))
+                .foregroundStyle(semiTransparentGray)
             Text("Degmesin Ellerimiz Model - Diger Masa")
                 .font(.system(size: 16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,7 +60,7 @@ struct AudioPlayerView: MVIBaseView {
     
     var separatorView: some View {
         Divider()
-            .background(.gray.opacity(0.5))
+            .background(semiTransparentGray)
     }
     
     var sliderTimePlayView: some View {
@@ -77,11 +76,11 @@ struct AudioPlayerView: MVIBaseView {
         HStack {
             Text(String(format: "%02d:%02d", Int(viewModel.state.progressTimePlayback) / 60, Int(viewModel.state.progressTimePlayback) % 60))
                 .font(.custom("Montserrat-Regular", size: 13))
-                .foregroundStyle(.gray.opacity(0.5))
+                .foregroundStyle(semiTransparentGray)
             Spacer()
             Text(String(format: "%02d:%02d", Int(viewModel.state.totalPlaybackDuration) / 60, Int(viewModel.state.totalPlaybackDuration) % 60))
                 .font(.custom("Montserrat-Regular", size: 13))
-                .foregroundStyle(.gray.opacity(0.5))
+                .foregroundStyle(semiTransparentGray)
         }
     }
     
@@ -139,23 +138,13 @@ struct AudioPlayerView: MVIBaseView {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24)
-                    .foregroundStyle(.gray.opacity(0.5))
+                    .foregroundStyle(semiTransparentGray)
             }
             .padding(EdgeInsets(.init(top: 24, leading: 0, bottom: 0, trailing: 36)))
         }
     }
-}
-
-
-#Preview {
-    AudioPlayerView(viewModel: .init(state: .init(showAudioPlayer: true)))
-}
-
-private struct controlButton: View {
-    let imageName: String
-    let action: () -> Void
     
-    var body: some View {
+    func controlButton(imageName: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: imageName)
                 .resizable()
@@ -165,3 +154,8 @@ private struct controlButton: View {
         }
     }
 }
+
+#Preview {
+    AudioPlayerView(viewModel: .init(state: .init(showAudioPlayer: true)))
+}
+
