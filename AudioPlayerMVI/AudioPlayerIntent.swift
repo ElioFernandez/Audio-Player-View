@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - Intents
 enum AudioPlayerIntent: MVIIntent {
     case didTapClose
     case didTapPlay
@@ -8,4 +9,3 @@ enum AudioPlayerIntent: MVIIntent {
     case didTapBackward
     case didTapForward
 }
-

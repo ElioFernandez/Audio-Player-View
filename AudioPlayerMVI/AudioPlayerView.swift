@@ -23,7 +23,8 @@ struct AudioPlayerView: MVIBaseView {
             closeButtonView
         }
     }
-    
+
+    // MARK: - Subviews
     var infoTrackView: some View {
         HStack(alignment: .top, spacing: 16) {
             albumCoverView
@@ -49,10 +50,10 @@ struct AudioPlayerView: MVIBaseView {
                 .font(.system(size: 12, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(semiTransparentGray)
-            Text("Degmesin Ellerimiz Model - Diger Masa")
+            Text("Degmesin Ellerimiz - Diger Masa")
                 .font(.system(size: 16, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 54, alignment: .top)
+                .frame(height: 54, alignment: .bottom)
                 .foregroundStyle(.white)
                 .lineLimit(2)
         }
@@ -131,7 +132,7 @@ struct AudioPlayerView: MVIBaseView {
     
     var closeButtonView: some View {
         Button {
-                viewModel.intentHandler(.didTapClose)
+            viewModel.intentHandler(.didTapClose)
         } label: {
             HStack {
                 Image(systemName: "xmark.circle")
@@ -140,10 +141,11 @@ struct AudioPlayerView: MVIBaseView {
                     .frame(width: 24)
                     .foregroundStyle(semiTransparentGray)
             }
-            .padding(EdgeInsets(.init(top: 24, leading: 0, bottom: 0, trailing: 36)))
+            .padding(EdgeInsets(.init(top: 24, leading: 0, bottom: 0, trailing: 42)))
         }
     }
     
+    // MARK: - Action
     func controlButton(imageName: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: imageName)

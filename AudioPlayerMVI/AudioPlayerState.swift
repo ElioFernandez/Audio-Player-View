@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 import SwiftUI
 
+// MARK: - States
 struct AudioPlayerState: MVIViewState {
     var showAudioPlayer: Bool
     var isPlaying: States = .off

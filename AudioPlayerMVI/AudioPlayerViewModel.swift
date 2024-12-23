@@ -26,6 +26,7 @@ class AudioPlayerViewModel: MVIBaseViewModel {
     }
 }
 
+// MARK: - Private Actions
 private extension AudioPlayerViewModel {
     
     func closeAudioPlayer() {
@@ -60,34 +61,6 @@ private extension AudioPlayerViewModel {
         }
     }
     
-    func resetPlayback() {
-        state.progressTimePlayback = 0
-        state.pausedTime = 0
-    }
-    
-    private func updateProgress(newValue: Float) {
-        guard state.showAudioPlayer else { return }
-        
-        state.timerPlayback?.invalidate()
-        
-        let newTime = Double(newValue) * state.totalPlaybackDuration
-        let clampedTime = min(max(newTime, 0), state.totalPlaybackDuration)
-        
-        state.player?.currentTime = clampedTime
-        state.progressTimePlayback = clampedTime
-        state.player?.prepareToPlay()
-        
-        if state.isPlaying == .on {
-            state.player?.play()
-        }
-        restartPlaybackTimer()
-    }
-    
-    func updateVolume(_ volume: Float) {
-        state.volume = volume
-        state.player?.volume = volume
-    }
-    
     func backwardPlayback() {
         let newTime = state.progressTimePlayback - 5.0
         if newTime > 0 {
@@ -113,12 +86,33 @@ private extension AudioPlayerViewModel {
         restartPlaybackTimer()
     }
     
-    private func restartPlaybackTimer() {
-        state.timerPlayback?.invalidate()
-        playbackTimer()
+    func updateVolume(_ volume: Float) {
+        state.volume = volume
+        state.player?.volume = volume
     }
     
-    private func playbackTimer() {
+    func updateProgress(newValue: Float) {
+        guard state.showAudioPlayer else { return }
+        
+        state.timerPlayback?.invalidate()
+        
+        let newTime = Double(newValue) * state.totalPlaybackDuration
+        let clampedTime = min(max(newTime, 0), state.totalPlaybackDuration)
+        
+        state.player?.currentTime = clampedTime
+        state.progressTimePlayback = clampedTime
+        state.player?.prepareToPlay()
+        
+        if state.isPlaying == .on {
+            state.player?.play()
+        }
+        restartPlaybackTimer()
+    }
+}
+
+// MARK: - Playback Helpers
+private extension AudioPlayerViewModel {
+    func playbackTimer() {
         if state.isPlaying == .on {
             if state.pausedTime > 0 {
                 state.playbackStartTime = Date.timeIntervalSinceReferenceDate - state.pausedTime
@@ -139,13 +133,26 @@ private extension AudioPlayerViewModel {
         }
     }
     
-    private func playbackComplete() {
+    func restartPlaybackTimer() {
+        state.timerPlayback?.invalidate()
+        playbackTimer()
+    }
+    
+    func playbackComplete() {
         state.timerPlayback?.invalidate()
         state.isPlaying = .completed
         state.progressTimePlayback = state.totalPlaybackDuration
         closeAudioPlayer()
     }
     
+    func resetPlayback() {
+        state.progressTimePlayback = 0
+        state.pausedTime = 0
+    }
+}
+
+// MARK: - Network / Audio Initialization
+private extension AudioPlayerViewModel {
     func downloadAndInitializePlayer(with urlString: String) {
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -174,4 +181,3 @@ private extension AudioPlayerViewModel {
         task.resume()
     }
 }
-
