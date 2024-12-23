@@ -9,4 +9,4 @@ Check it out below.
 
 <img src="https://github.com/user-attachments/assets/e500453c-1f19-4640-aa7b-bf8b48b771b8" alt="Simulator Screenshot" width="300">
 
-https://github.com/user-attachments/assets/ac69baf8-85c9-42bf-a8eb-046dcb4e3792
+https://github.com/user-attachments/assets/53e3c2b8-53ff-46a7-a4da-5404471a2586
