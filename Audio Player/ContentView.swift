@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModelAP = AudioPlayerViewModel(state: AudioPlayerState(showAudioPlayer: false))
+    @StateObject var viewModel = AudioPlayerViewModel(state: AudioPlayerState(showAudioPlayer: false))
     
     var body: some View {
         ZStack {
@@ -21,12 +21,12 @@ struct ContentView: View {
             
             playButton
             
-            if viewModelAP.state.showAudioPlayer {
+            if viewModel.state.showAudioPlayer {
                 ZStack(alignment: .bottom) {
                     Color.black.opacity(0.4)
                         .ignoresSafeArea()
                     
-                    AudioPlayerView(viewModel: viewModelAP)
+                    AudioPlayerView(viewModel: viewModel)
                         .padding(.bottom)
                 }
             }
@@ -40,7 +40,7 @@ struct ContentView: View {
                 Spacer()
                 Button {
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                        viewModelAP.state.showAudioPlayer.toggle()
+                        viewModel.state.showAudioPlayer.toggle()
                     }
                 } label: {
                     Image(systemName: "play.circle")
