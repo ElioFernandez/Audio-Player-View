@@ -3,6 +3,10 @@ Audio Player Design in SwiftUI.
 
 SwiftUI makes it enjoyable to develop interactive features like this audio player. This popup audio player displays album artwork, the track title, playback controls, and a close button. It’s simple yet functional.
 
+Support by:
+
+[![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=eliofernandez&button_colour=40DCA5&font_colour=ffffff&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00)](https://www.buymeacoffee.com/eliofernandez)
+
 The player logic is structured using the MVI pattern. It includes forward and rewind functions for 5-second intervals, and the player automatically closes when the track ends.
 
 Check it out below.
