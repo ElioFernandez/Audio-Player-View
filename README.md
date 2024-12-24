@@ -5,7 +5,7 @@ SwiftUI makes it enjoyable to develop interactive features like this audio playe
 
 Support by:
 
-<a href="https://www.buymeacoffee.com/eliofernandez" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/eliofernandez" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 The player logic is structured using the MVI pattern. It includes forward and rewind functions for 5-second intervals, and the player automatically closes when the track ends.
 
