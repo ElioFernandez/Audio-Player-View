@@ -1,4 +1,4 @@
-# AudioPlayerPopup
+# Audio Player
 Audio Player Design in SwiftUI.
 
 SwiftUI makes it enjoyable to develop interactive features like this audio player. This popup audio player displays album artwork, the track title, playback controls, and a close button. It’s simple yet functional.
