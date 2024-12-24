@@ -1,0 +1,7 @@
+# Xcode
+*.xcuserdata
+*.xcworkspace
+build/
+DerivedData/
+*.swp
+*.lock
